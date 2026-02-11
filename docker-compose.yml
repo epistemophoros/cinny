@@ -1,0 +1,24 @@
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      # If you want to name the stages for clarity (optional):
+      # target: app
+
+    ports:
+      - "4366:80"
+
+    # Optional: restart policy
+    restart: unless-stopped
+
+    # Optional: give it a nice container name
+    # container_name: aexora-frontend
+
+    # Optional: healthcheck (recommended for production)
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 5s
